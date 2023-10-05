@@ -1,0 +1,106 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% load static %}
+
+{% block start %}
+    <section class="content-main">
+        <div class="row">
+            <div class="col-9">
+                <div class="content-header">
+                    <h2 class="content-title">Category</h2>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4>Basic</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="{% url 'add_category' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <strong></strong>{{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="mb-4">
+                                <label for="image" class="form-label">Image</label>
+                                <input type="file" class="form-control" id="image-upload" name="image" accept="image/*">
+                            </div>
+                            <!-- Image preview container -->
+                            <div class="mb-4">
+                                <img id="image-preview" src="" alt="Image Preview" style="max-width: 100%;">
+                            </div>
+                            <!-- Hidden input field to store the cropped image data -->
+                            <input type="hidden" id="cropped-image" name="cropped_image">
+                            <div class="mb-4">
+                                <label for="slug" class="form-label">Slug</label>
+                                <input type="text" placeholder="Type here" class="form-control" name="slug" />
+                            </div>
+                            <div class="mb-4">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" placeholder="Type here" class="form-control" name="name" />
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Description</label>
+                                <textarea placeholder="Type here" class="form-control" rows="4" name="description"></textarea>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary" type="submit">Create Category</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Include Cropper.js and its dependencies -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+    <!-- JavaScript code to initialize Cropper.js -->
+    <script>
+        // Function to handle image cropping
+        function initCropper() {
+            var image = document.getElementById('image-preview');
+            var input = document.getElementById('image-upload');
+            var cropper = new Cropper(image, {
+                aspectRatio: 1, // You can adjust this as needed
+                viewMode: 2,   // You can adjust this as needed
+                ready: function () {
+                    // Set initial aspect ratio and view mode
+                    cropper.setAspectRatio(1);
+                    cropper.setViewMode(2);
+                },
+                crop: function (event) {
+                    // Get the cropped image data and update the hidden input field
+                    var croppedData = cropper.getCroppedCanvas().toDataURL('image/jpeg');
+                    document.getElementById('cropped-image').value = croppedData;
+                }
+            });
+
+            // Handle file input change event
+            input.addEventListener('change', function () {
+                var file = input.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        image.src = e.target.result;
+                        cropper.replace(e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        // Initialize Cropper when the page is ready
+        document.addEventListener('DOMContentLoaded', function () {
+            initCropper();
+        });
+    </script>
+</script>
+{% endblock %}

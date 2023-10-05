@@ -1,0 +1,91 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% load static %}
+
+{% block start %}
+            <section class="content-main">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="content-header">
+                            <h2 class="content-title">Add New Product</h2>
+                            {% comment %} <div>
+                                <button class="btn btn-light rounded font-sm mr-5 text-body hover-up">Save to draft</button>
+                                <button class="btn btn-md rounded font-sm hover-up">Publich</button>
+                            </div> {% endcomment %}
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4>Basic</h4>
+                            </div>
+                            <div class="card-body">
+                                <form action="{% url 'add_product' %}" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            <strong></strong>{{ message }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div class="mb-4">
+                                        <label for="product_name" class="form-label">Product name</label>
+                                        <input type="text" placeholder="Type here" class="form-control" name="name"  />
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Full description</label>
+                                        <textarea placeholder="Type here" name="description" class="form-control" rows="4"></textarea>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <label class="form-label">Brand</label>
+                                            <select name="brand" class="form-select">
+                                                {% for brand in brands %}
+                                                <option>{{brand.brand_name}}</option>
+                                                {% endfor %}
+                                            
+                                            </select> 
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">category</label>
+                                        <select name="category"  class="form-select">
+                                            {% for category in categories %}
+                                            <option value={{category.id}}>{{category.category_name}}</option>
+                                            {% endfor %}
+                                    </div>
+                                    <label class="form-check mb-4">
+                                        <input class="form-check-input" type="checkbox" value="" name="is_availiable" />
+                                        <span class="form-check-label"> is aviliable </span>
+                                    </label>
+                                        </div>
+                                    <div class="">
+                                        <div class="card mb-4">
+                                            <div class="card-body">
+                                                <div class="input-upload">
+                                                    <label class="form-label">product thumnile</label>
+                                                    <input class="form-control" type="file"  name="image" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div >
+                                        <button  class="btn btn-primary" type ="submit">Create product </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- card end// -->
+                        
+                        <!-- card end// -->
+                    </div>
+                    
+                        
+                    </div>
+                </div>
+            </section>
+            <!-- content-main end// -->
+
+{% endblock %}

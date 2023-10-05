@@ -1,0 +1,81 @@
+{% extends 'layouts/main.html' %}
+
+{% load static %}
+
+{% block body %}
+<!-- Breadcrumb Area Start Here -->
+<div class="breadcrumbs-area position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="breadcrumb-content position-relative section-content">
+                    <h3 class="title-3">order Confirmation</h3>
+                    <ul>
+                        <li><a href="{% url "home" %}">Home</a></li>
+                        <li>Checkout</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End Here -->
+
+<!-- Confirmation Part Start -->
+<section class="confirmation_part">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="confirmation_title">
+                    <span>Thank you {{ new_order.user.first_name }}. Your order has been received.</span>
+                </div>
+            </div>
+            <div class="col-lg-12 col-lx-8">
+                <div class="single_confirmation_details">
+                    <h4>Order Info</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Order ID</th>
+                                    <td>{{ new_order.tracking_no }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Order Time</th>
+                                    <td>{{ new_order.created_at }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Sub Total</th>
+                                    <td>INR {{ new_order.sub_total }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Coupon</th>
+                                    <td>INR -{{ new_order.coupon.discount_price }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Total</th>
+                                    <td>INR {{ new_order.total_price }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Payment Method</th>
+                                    <td>{{ new_order.payment_method }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Status</th>
+                                    <td>{{ new_order.status }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Confirmation Part End -->
+<!-- "Return to Home" button placed above the footer with space -->
+<div class="text-center"> <!-- Center-align the button -->
+    <a href="{% url "home" %}" class="btn flosun-button primary-btn rounded-0 black-btn w-30">Return to Home</a>
+    <br>
+</div>
+{% endblock body %}  

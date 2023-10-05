@@ -1,0 +1,45 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% load static %}
+
+{% block start %}
+
+<!-- cart main wrapper start -->
+<div class="cart-main-wrapper mt-no-text">
+    <div class="container custom-area">
+        <div class="row">
+            <div class="col-lg-12 col-custom" >
+                <!-- Cart Table Area -->
+                <div class="cart-table table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="pro-thumbnail">Image</th>
+                                <th class="pro-title">Product</th>
+                                <th class="pro-price">Price</th>
+                                <th class="pro-quantity">Quantity</th>
+                                <th class="pro-subtotal">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders.orderitems.all %}
+                            <tr >
+                                <td class="pro-thumbnail"  ><a href="#"><img class="img-fluid" style="height:100px;width:100px" src="{{ order.product.image.url}}" alt="Product" /></a></td>
+                                <td class="pro-title"><a href="#">"{{order.product.product_name}}" </a></td>
+                                <td class="pro-price"><span>{{order.product.price}}</span></td>
+                                <td class="pro-quantity"><span>{{order.quantity}}</span></td>
+                                <td class="pro-quantity"><span>{{order.calculated_item_total}}</span></td>
+                                
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Cart Update Option -->
+            </div>
+        </div>
+        
+    </div>
+</div>
+<!-- cart main wrapper end -->
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'layouts/main.html' %}
+
+{% load static %}
+
+{% block body %}  
+
+{% include 'inc/my-account_sidebar.html' %}
+
+<div class="col-lg-9 col-md-8 col-custom">
+    <div class="tab-content" id="myaccountContent">
+<!-- Single Tab Content Start -->
+    {% comment %} <div class="tab-pane fade" id="orders" role="tabpanel"> {% endcomment %}
+    <div class="myaccount-content"> 
+        <h3>Orders</h3>
+        <div class="myaccount-table table-responsive text-center">
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Order id</th>
+                        <th>Track</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>address</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{order.id}}</td>  
+                        <td>{{order.tracking_no}}</td>
+                        <td>{{order.created_at}}</td>
+                        <td>{{order.status}}</td>
+                        <td>{{order.total_price}}</td>
+                        <td>{{order.address.name}}</td>
+                        <td>
+                            {% if order.status != 'cancelled' %}
+                            <a href="{% url "cancel_order" order.id %}" class="btn flosun-button secondary-btn theme-color  rounded-0">Cancell orders</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <td><a href="{% url 'invoice' order.id %}" class="btn flosun-button secondary-btn theme-color  rounded-0">invoice</a>
+                            </td>
+                        <td>
+                            <td><a href="{% url "order_view" order.id %}" class="btn flosun-button secondary-btn theme-color  rounded-0">View</a>
+                            </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+</div>
+<!-- Single Tab Content End -->
+
+
+{% endblock body %}  

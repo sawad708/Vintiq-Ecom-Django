@@ -1,0 +1,92 @@
+{% extends 'layouts/main.html' %}
+
+{% load static %}
+
+{% block body %}  
+{% comment %} !-- Breadcrumb Area Start Here --> {% endcomment %}
+    <div class="breadcrumbs-area position-relative">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="breadcrumb-content position-relative section-content">
+                        <h3 class="title-3">Add Addres</h3>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li>My Account</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Area End Here -->
+             <!-- Single Tab Content Start -->
+                                 <div id="account-info" role="tabpanel"> 
+                                    <div class="myaccount-content">
+                                        <h3>Edit address</h3>
+                                        <div class="account-details-form">
+                                            <form action="#" method="post">
+                                            {% csrf_token %}
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            <strong></strong>{{ message }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                                <div class="row">
+                                                    {% for addres in address %}
+                                                    <div class="col-lg-6 col-custom"> 
+                                                        <div class="single-input-item mb-3">
+                                                            <label for="name" class="required mb-1">Name</label>
+                                                            <input type="text" name="name" value="{{addres.name}}" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-custom"> 
+                                                        <div class="single-input-item mb-3">
+                                                            <label for="phonenumber" class="required mb-1">phone number</label>
+                                                            <input type="number" name="phonenumber" value="{{addres.phonenumber}}" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="single-input-item mb-3">
+                                                    <label for="address" class="required mb-1">address</label>
+                                                    <input type="text" name="address" value="{{addres.address}}" />
+                                                </div>
+                                                <div class="single-input-item mb-3">
+                                                    <label for="street" class="required mb-1">street</label>
+                                                    <input type="text" name="street" value="{{addres.street}}" />
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-custom"> 
+                                                        <div class="single-input-item mb-3">
+                                                            <label for="city" class="required mb-1">city</label>
+                                                            <input type="text" name="city" value="{{addres.city}}" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-custom"> 
+                                                        <div class="single-input-item mb-3">
+                                                            <label for="state" class="required mb-1">state</label>
+                                                            <input type="text" name="state" value="{{addres.state}}" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-custom"> 
+                                                        <div class="single-input-item mb-3">
+                                                            <label for="pincode" class="required mb-1">pin-code</label>
+                                                            <input type="number" name="pincode" value="{{addres.pincode}}" />
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="single-input-item single-item-button">
+                                                    <button class="btn flosun-button secondary-btn theme-color  rounded-0" type="submit">Save Changes</button>
+                                                </div>
+                                                {% endfor %}
+                                            </form>
+                                        </div>
+                                    </div>
+                                {% comment %} </div> <!-- Single Tab Content End --> {% endcomment %}
+                                {% endblock body %}  

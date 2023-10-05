@@ -1,0 +1,159 @@
+{% extends 'layouts/main.html' %}
+
+{% load static %}
+
+{% block body %}  
+
+
+
+<style>
+   
+    
+
+    .button button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .button button:hover {
+        background-color: #0056b3;
+    }
+
+    
+    .show-form .account_form {
+        display: block; /* Show the form when the class is present */
+    }
+    .submit-button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-button:hover {
+        background-color: #0056b3;
+    }
+    .add-address-link {
+        font-weight: bold;
+    }
+    .nice-button {
+        display: inline-block;
+        background-color: #3498db;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .label {
+        font-weight: bold;
+    }
+    
+    /* Rest of your existing CSS */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+    
+    .order-summary {
+        background-color: #fff;
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+    }
+    
+    .order-details {
+        margin-bottom: 20px;
+    }
+    
+    .detail {
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .items {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .items th,
+    .items td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .items th {
+        background-color: white;
+    }
+    .wallet-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 50vh; /* This makes the section take up the full viewport height */
+        text-align: center; /* Center-align text within the section */
+    }
+    
+    .wallet-info h2 {
+        font-size: 24px; /* Adjust the font size as needed */
+        margin-bottom: 20px; /* Add spacing below the heading */
+    }
+    
+    .balance p {
+        font-size: 18px; /* Adjust the font size as needed */
+        font-weight: bold; /* Make the balance text bold */
+    }
+</style>
+
+
+{% comment %} !-- Breadcrumb Area Start Here --> {% endcomment %}
+<div class="breadcrumbs-area position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="breadcrumb-content position-relative section-content">
+                    <h3 class="title-3">Wallet</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li>My Account</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End Here -->
+   
+
+
+    <section class="wallet-info">
+        <h2>Wallet Information</h2>
+        <div class="balance">
+            <p>Your Wallet Balance: &#8377;{{wallet.balance}}</p>
+        </div>
+        
+    </section>
+
+    
+
+
+{% endblock body %}  

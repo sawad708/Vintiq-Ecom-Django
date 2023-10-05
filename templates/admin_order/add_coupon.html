@@ -1,0 +1,61 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% load static %}
+
+{% block start %}
+            <section class="content-main">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="content-header">
+                            <h2 class="content-title">Add coupon</h2>
+                            {% comment %} <div>
+                                <button class="btn btn-light rounded font-sm mr-5 text-body hover-up">Save to draft</button>
+                                <button class="btn btn-md rounded font-sm hover-up">Publich</button>
+                            </div> {% endcomment %}
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4>Basic</h4>
+                            </div>
+                            <div class="card-body">
+                                <form action="#" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            <strong></strong>{{ message }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div class="mb-4">
+                                        <label for="product_name" class="form-label">Coupon code</label>
+                                        <input type="text" placeholder="Type here" class="form-control" name="Coupon_code"  />
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">minimum amount</label>
+                                        <input placeholder="Type here" name="minimum_amount" type="text" class="form-control" />
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="product_name" class="form-label">discount price</label>
+                                        <input type="text" placeholder="Type here" class="form-control" name="discount_price"  />
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="product_name" class="form-label">expiry date</label>
+                                        <input type="text" placeholder="Type here" class="form-control" name="end_date"  />
+                                    </div>
+                                    <div >
+                                        <button  class="btn btn-primary" type ="submit">Create Category </button>
+                                    </div>
+                                </form>
+                               
+                            </div>
+                        </div>
+                        <!-- card end// -->
+                    </div>
+                    
+                </div>
+
+{% endblock %}

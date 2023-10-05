@@ -1,0 +1,130 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% load static %}
+
+{% block start %}
+<!-- card-header end// -->
+<div class="card-body">
+    <div class="content-header">
+        <h2 class="content-title">Brand list</h2>
+        <div>
+            <a href="{% url 'add_coupon' %}" class="btn btn-primary"><i class="material-icons md-plus"></i> Add Brand </a>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#ID</th>
+                    <th scope="col"> Offers</th>
+                    <th scope="col">starting Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Discout Percentage</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"> action</th>
+                    <th scope="col"></th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in offers %}
+                <tr>
+                    <td>{{i.id}}</td>
+                    <td>{{i.title }}</td>
+                    <td>{{i.start_date}}</td>
+                    <td>{{i.end_date }}</td>
+                    <td>{{i.discount_persentage }}</td>
+                    <td>{{i.created_at }}</td>
+                    <td>{{i.is_delete }}</td>
+                    <td>
+                        {% if brand.is_availiable == True %}
+                        <a href=" " class="btn btn-md btn-danger"> block </a>
+                        {% else %}
+                        <a href="" class="btn btn-md btn-green"> unblock </a>
+                        {% endif%}
+                    </td>
+                    <td class="">
+                        
+                        <!-- Button trigger modal -->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+edit</button>
+
+<!-- Modal -->
+
+<div class="modal fade" id="exampleModal{{ brand.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ brand.id }}" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h1 class="modal-title fs-5" id="exampleModalLabel">Edit Brand</h1>
+<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+<form action="#" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong></strong>{{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{%endif%}
+<div class="mb-4">
+<label for="product_name" class="form-label">Name</label>
+<input type="text" placeholder="Type here" class="form-control" name="name" value="{{brand.brand_name}}"  />
+</div>
+<div class="mb-4">
+<label class="form-label">description</label>
+<textarea placeholder="Type here" name="description" class="form-control" rows="4">{{brand.brand_description}}</textarea>
+</div>
+<div class="col-sm-6">
+<div class="card mb-4">
+    <div class="card-header">
+        <h4>Media</h4>
+    </div>
+    <div class="card-body">
+        <div class="input-upload">
+            {% if brand.brand_image %}
+                        <img src="{{ brand.brand_image.url }}" alt="brand Image">
+                        
+                        {% else %}
+                        No image available
+                        {% endif %}
+            <input class="form-control" type="file" name="image" />
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+<button type="submit" class="btn btn-primary">Save changes</button>
+</div>
+</form>
+</div>
+
+</div>
+</div>
+</div>
+
+                        
+                        </div>
+                        <!-- dropdown //end -->
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- table-responsive //end -->
+</div>
+<!-- card-body end// -->
+</div>
+
+</section>
+<!-- content-main end// -->
+<br>
+
+
+{% endblock %}

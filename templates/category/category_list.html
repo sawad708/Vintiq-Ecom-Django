@@ -1,0 +1,153 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% load static %}
+
+{% block start %}
+
+                    <!-- card-header end// -->
+                    <div class="card-body">
+                        <div class="content-header">
+                            <h2 class="content-title">Category list</h2>
+                            <div>
+                                <a href="{% url 'add_category' %}" class="btn btn-primary"><i class="material-icons md-plus"></i> Add Category </a>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#ID</th>
+                                        <th scope="col">Slug</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Image</th>
+                                        
+                                        <th scope="col"></th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for category in categories %}
+                                    <tr>
+                                        <td>#{{ category.id}}</td>
+                                        <td>{{ category.slug }}</td>
+                                        <td>{{ category.category_name }}</td>
+                                        <td>{{ category.category_description }}</td>
+                                        <td>
+                                            {% if category.category_image %}
+                                                <img src="{{ category.category_image.url }}" alt="Category Image" width="75" height="75">
+                                                
+                                            {% else %}
+                                                No image available
+                                            {% endif %}
+                                        </td>
+                                        {% comment %} <td><span class="badge rounded-pill alert-warning">Pending</span></td> {% endcomment %}
+                                        <td>
+                                            {% if category.is_available == True %}
+                                            <a href="{% url 'block_category' category.id %} " class="btn btn-md btn-danger"> block </a>
+                                            {% else %}
+                                            <a href="{% url 'block_category' category.id  %} " class="btn btn-md btn-green"> unblock </a>
+                                            {% endif%}
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-md rounded font-sm" data-bs-toggle="modal" data-bs-target="#exampleModal{{ category.id }}" >
+                                                edit</button>
+                                            <!-- Modal -->
+  
+                                                <div class="modal fade" id="exampleModal{{ category.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ category.id }}" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Category</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="{% url 'edit_category' category.id %}" method="post" enctype="multipart/form-data">
+                                                                {% csrf_token %}
+                                                                {% if messages %}
+                                                                    {% for message in messages %}
+                                                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                                        <strong></strong>{{ message }}
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                                    </div>
+                                                                    {% endfor %}
+                                                                {%endif%}
+                                                                <div class="mb-4">
+                                                                    <label for="product_name" class="form-label">slug</label>
+                                                                    <input type="text" placeholder="Type here" class="form-control" name="slug" value="{{category.slug}}" />
+                                                                </div>
+                                                                <div class="mb-4">
+                                                                    <label for="product_name" class="form-label">Name</label>
+                                                                    <input type="text" placeholder="Type here" class="form-control" name="name" value="{{category.category_name}}" />
+                                                                </div>
+                                                                <div class="mb-4">
+                                                                    <label class="form-label">description</label>
+                                                                    <textarea placeholder="Type here" class="form-control" rows="4" name="description" >{{category.category_description}}</textarea>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="card mb-4">
+                                                                        <div class="card-header">
+                                                                            <h4>Media</h4>
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            <div class="input-upload">
+                                                                                {% if category.category_image %}
+                                                                                            <img src="{{ category.category_image.url }}" alt="category Image">
+                                                                                            
+                                                                                            {% else %}
+                                                                                            No image available
+                                                                                            {% endif %}
+                                                                                <input class="form-control" type="file"  name="image"/>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                {% comment %} <label class="form-check mb-4">
+                                                                    <input class="form-check-input" type="checkbox" value=""  name="is_availiable"/>
+                                                                    <span class="form-check-label"> is availiable </span>
+                                                                    <span class="form-check-label"> not availiable </span>
+                                                                </label> {% endcomment %}
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- dropdown //end -->
+                                        </td>
+                                    </tr>
+
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- table-responsive //end -->
+                    </div>
+                    <!-- card-body end// -->
+                </div>
+                <!-- card end// -->
+                {% comment %} <div class="pagination-area mt-15 mb-50">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-start">
+                            <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                            <li class="page-item"><a class="page-link" href="#">02</a></li>
+                            <li class="page-item"><a class="page-link" href="#">03</a></li>
+                            <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#">16</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div> {% endcomment %}
+            </section>
+            <!-- content-main end// -->
+            <br>
+            
+
+{% endblock %}

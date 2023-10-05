@@ -1,0 +1,107 @@
+{% extends 'layouts/main.html' %}
+
+{% load static %}
+
+{% block body %}  
+
+
+
+<style>
+    .default-form-box {
+        margin-bottom: 20px; /* Add your preferred spacing value */
+    }
+    .profile-section {
+        display: flex;
+        align-items: center;
+    }
+    
+    .profile-icon img {
+        width: 170px;
+        height: 170px;
+        border-radius: 15%;
+        object-fit: cover;
+        margin-right: 20px;
+    }
+
+    .default-form-box label{
+        max-width : 200px
+    }
+    input:disabled {
+        background-color: #f1f1f1; /* Grey background color */
+        color: #888; /* Grey text color */
+    }
+    .messages .success {
+        color: blue; /* Change this color to your preferred shade of blue */
+    }
+    .messages .error {
+        color: blue;
+    }
+    
+        .change-password-link {
+            color: grey; /* Default color */
+            text-decoration: none; /* Remove underline */
+            transition: color 0.3s; /* Smooth transition effect */
+        }
+    
+        .change-password-link:hover {
+            color: black; /* Color on hover */
+        }
+        body{background:white !important}
+        .coupon{border-radius: 12px;box-shadow: 5px 8px 10px #d6d5d533}body{background: white}
+        .code:hover{background: green;color: #fff;cursor: pointer}
+    
+
+
+    
+</style>
+
+{% comment %} !-- Breadcrumb Area Start Here --> {% endcomment %}
+<div class="breadcrumbs-area position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="breadcrumb-content position-relative section-content">
+                    <h3 class="title-3">Coupons</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li>My Account</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End Here -->
+     
+    {% for coupon_show in coupon_shows %}
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center row">
+          <div class="col-md-6">
+            <div class="coupon p-3 bg-white">
+              <div class="row no-gutters">
+                <div class="col-md-4 border-right">
+                  <!-- Add an input field for minimum price -->
+                  <div class="form-group">
+                    <label for="min-price">Minimum Price:</label>
+                    <span>₹{{coupon_show.minimum_amount}}</span>
+                    <label for="min-price">Expiry on:</label>
+                    <span>{{coupon_show.end_date}}</span>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div>
+                    <div class="d-flex flex-row justify-content-end off">
+                      <h1>₹{{coupon_show.discount_price}}</h1><span>OFF</span>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between off px-3 p-2">
+                      <span>Promo code:</span><span class="border border-success px-3 rounded code">{{coupon_show.Coupon_code}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor%}
+      {% endblock body %}  
