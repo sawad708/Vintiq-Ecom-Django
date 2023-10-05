@@ -48,6 +48,7 @@ def add_category(request):
 
 
 
+
 @login_required(login_url='login')
 def edit_category(request, id):
     if request.method == 'POST':
