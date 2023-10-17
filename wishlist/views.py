@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from . models import Wishlist
-from product.models import Product
+from variant.models import Variant
 
 # Create your views here.
 
@@ -12,14 +12,14 @@ def wishlist(request):
     
 def add_wishlist(request, id):
     user = request.user
-    product = get_object_or_404(Product, id=id)
-    wishlist, _ = Wishlist.objects.get_or_create(user=user, product=product)
+    variant = get_object_or_404(Variant, id=id)
+    wishlist, _ = Wishlist.objects.get_or_create(user=user, variant=variant)
     
-    if Wishlist.objects.filter(user=user, product=product).exists():
+    if Wishlist.objects.filter(user=user, variant=variant).exists():
         # Handle the case where the product is already in the wishlist, e.g., display a message
         return redirect('wishlist')
     
-    wishlist = Wishlist(user=user, product=product)
+    wishlist = Wishlist(user=user, variant=variant)
     wishlist.save()
     
     return redirect('shop')

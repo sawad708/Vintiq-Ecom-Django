@@ -15,20 +15,22 @@ def shop(request):
     
     
     category_id = request.GET.get('category')
+    print('ttttt------tttttt',category_id)
     brand_id = request.GET.get('brand')
+    print('----rr---------',brand_id)
     
     if category_id:
-        products = variants.filter(product__category__id = category_id, product__is_availiable=True)
+        variants = Variant.objects.filter(product__category__id = category_id)
         
     if brand_id:
-        products = Variant.objects.filter(product__brand__id=brand_id, product__is_availiable=True)
+        variants = Variant.objects.filter(product__brand__id=brand_id, product__is_availiable=True)
         
-    # if request.method == 'POST':
-    #     searched = request.POST['searched']
-    #     products = Product.objects.filter(product_name = searched)
-    #     return render(request, 'shop/shop.html', {'products':products})
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        variants = Variant.objects.filter(product__product_name__icontains = searched)
+        # return render(request, 'shop/shop.html', {'variants':variants})
         
-   
+    print('ooooooooooooooo', products)
     brands = Brand.objects.filter(is_availiable=True)
     categories = Category.objects.filter(is_available=True)
     context = {
@@ -40,15 +42,13 @@ def shop(request):
         }
     
     
-    
     return render(request, 'shop/shop.html', context)
 
 def product_detailes(request, id):
     
     variants = Variant.objects.filter(id=id)
-    # products = get_object_or_404(Product, id=id)
-    # variants = products.product.all()
-    # variant = products.product.all()
+    var = variants.first()
+    variant = Variant.objects.filter(product=var.product)
     print('---------------',variants)
     # variant_img = []
     # first = variants.first()
@@ -63,7 +63,7 @@ def product_detailes(request, id):
     context = {
         # 'products':products,
         'variants':variants,
-        # 'variant': variant
+        'variant_color':variant,
         # 'variant_img':variant_img,
         # 'first':first,
 

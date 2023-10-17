@@ -111,13 +111,12 @@
                     </div>
                     <div class="sku mb-3">
                         <span>stock : {{variant.stock}}</span>
-                    {% for i in variant %}
-                    </div><div class="sku mb-3">
-                        <button > <span>{{i.color}}</span></button>
-                    </div>
+                   <div class="sku mb-3">
+                    {% for i in variant_color %}
+                    <a href="{% url "product_detailes" i.id %}"> <span> *{{i.color}}</span></a>
                     {% endfor %}
-                    <p class="desc-content mb-5">{{variant.product.description}}</p>
-                    
+                </div>
+                <p class="desc-content mb-5">{{variant.product.description}}</p>
                     <div class="quantity-with_btn mb-5">
                         <div class="quantity">
                             <div class="cart-plus-minus">

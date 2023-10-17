@@ -43,10 +43,10 @@
                                 {% for wishlist in wishlists %}
                                 <tr>
                                     <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src={{wishlist.product.image.url}} alt="Product" /></a></td>
-                                    <td class="pro-title"><a href="#">{{wishlist.product.product_name}}</a></td>
-                                    <td class="pro-price"><span>{{wishlist.product.price}}</span></td>
+                                    <td class="pro-title"><a href="#">{{wishlist.variant.product.product_name}}</a></td>
+                                    <td class="pro-price"><span>{{wishlist.variant.price}}</span></td>
                                     <td class="pro-stock"><span><strong>In Stock</strong></span></td>
-                                    <td class="pro-cart"><a href="{% url "add_to_cart" wishlist.product.id %}" class="btn product-cart button-icon flosun-button dark-btn">Add to Cart</a></td>
+                                    <td class="pro-cart"><a href="#" class="btn product-cart button-icon flosun-button dark-btn">Add to Cart</a></td>
                                     <td class="pro-remove"><a href="{% url "delete_wishlist" wishlist.id %}"><i class="lnr lnr-trash"></i></a></td>
                                 </tr>
                                 {% endfor %}

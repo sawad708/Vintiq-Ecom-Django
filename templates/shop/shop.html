@@ -760,15 +760,18 @@
                             <div class="widget_inner">
                                 <div class="widget-list widget-mb-1">
                                     <h3 class="widget-title">Search</h3>
+                                    <form method="POST">
+                                        {% csrf_token %}
                                     <div class="search-box">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search Our Store" aria-label="Search Our Store">
+                                            <input name="searched" type="text" class="form-control" placeholder="Search Our Store" aria-label="Search Our Store">
                                             <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary" type="button">
+                                                <button class="btn btn-outline-secondary" type="submit">
                                                     <i class="fa fa-search"></i>
                                                 </button>
                                             </div>
                                         </div>
+                                    </form>
                                     </div> 
                                 </div>
                                 <div class="widget-list widget-mb-1">

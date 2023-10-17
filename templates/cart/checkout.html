@@ -368,19 +368,25 @@
                             </div>
                         </div>
                     </div> {% endcomment %}
-                    <div id="payment" class="checkout-payment">
-																		
-																		
+                    <div id="payment" class="checkout-payment">											
                         <button type="submit" class="btn flosun-button secondary-btn black-color rounded-0 w-100" name="payment_method" value="COD">Cash on delivery</button>
-                </div>
-                <br>
-                <div id="payment" class="checkout-payment">
+                    </div>
+                    <br> 
+                    <div id="payment" class="checkout-payment">
 																		
 																		
                    
                     <button  id="rzp-button1"  type="button" class="btn flosun-button secondary-btn black-color rounded-0 w-100" name="payment_method" value="Razorpay">pay on Razorpay</button>
 
-                </div>
+                    </div>
+                    <br>
+                    
+                    {% comment %} <div id="payment" class="checkout-payment">
+                        <button type="button" onclick="payWithWallet()" class="btn flosun-button secondary-btn black-color rounded-0 w-100" name="payment_method" value="Wallet">Pay on Wallet</button>
+                    </div>
+                     {% endcomment %}
+                    
+                
                     <script src="http://checkout.razorpay.com/v1/checkout.js"></script>
                 </head>
                 <body>
@@ -397,7 +403,6 @@
 
                     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
                     <script>
-                        alert("hello")
                         var options = {
                             "key": "rzp_test_NeEG40WVR5k4Of", // Enter the Key ID generated from the Dashboard
                             "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -469,7 +474,31 @@
                         }
                         
                         </script>
-                    
+
+                        {% comment %} <script>
+                            function payWithWallet() {
+                                console.log('99999999999')
+                              // Assuming you have a variable named 'walletBalance' that holds the user's wallet balance
+                              var walletBalance = {{ Wallet.balance }};
+                              var orderTotal = {{ total }}; // Total amount of the order
+                          
+                              if (walletBalance >= orderTotal) {
+                                console.log('helooo')
+                                // If wallet balance is sufficient, deduct the order total from the wallet
+                                walletBalance -= orderTotal;
+                                console.log(walletBalance)      
+                                document.getElementById('wallet_balance').value = walletBalance.toFixed(2);
+                          
+                                // Set the payment mode to 'Wallet' and submit the form
+                                document.getElementById('payment_mode').value = 'Wallet';
+                                console.log(document.getElementById('payment_mode').value)
+                                document.getElementById('checkout-form').submit();
+                              } else {
+                                Swal.fire('Insufficient wallet balance. Please top up your wallet.');
+                              }
+                            }
+                          </script>
+                     {% endcomment %}
                 </div>		
                 </div>
             </form>

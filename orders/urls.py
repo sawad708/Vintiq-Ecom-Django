@@ -13,7 +13,7 @@ urlpatterns = [
       path('place_order_razorpay/', views.place_order_razorpay, name='place_order_razorpay'),
       path('return_order/<int:id>', views.return_order, name='return_order'),
       path('success/', views.success, name='success'),
-      path('wallet_payment/', views.wallet_payment, name='wallet_payment'),
+      # path('wallet_payment/', views.wallet_payment, name='wallet_payment'),
     
     
 ]
