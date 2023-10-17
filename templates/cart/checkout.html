@@ -417,7 +417,7 @@
                             "handler": function (response){
                                 $.ajax({
                                     method: "POST",
-                                    url: "http://127.0.0.1:8000/orders/place_order_razorpay/",
+                                    url: `${window.location.origin}/orders/place_order_razorpay/`,
                                     data: {'address':options.address, csrfmiddlewaretoken: options.token},
                                     
                                     success: function (responsec) {
@@ -431,10 +431,6 @@
                                 });
                             alert(options.address),
 
-                                
-                                alert(response.razorpay_payment_id);
-                                alert(response.razorpay_order_id);
-                                alert(response.razorpay_signature)
                                 window.location.href = `${window.location.origin}/orders/success/`
                             },
                             "theme": {
